@@ -57,7 +57,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         return res.status(400).json({ error: 'Fayl yuklanmadi' });
     }
 
-    const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    const fileUrl = `${process.env.BASE_URL || 'http://localhost:5000'}/uploads/${req.file.filename}`;
     const fileNameFromClient = req.body.filename || req.file.originalname;  // Fayl nomini clientdan yoki faylni original nomidan olish
 
     try {
@@ -168,5 +168,5 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Serverni ishga tushirish
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-  });
-  
+});
+
